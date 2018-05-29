@@ -1,0 +1,48 @@
+
+<body onload="document.getElementById('myGasCheck').click()">
+
+Check gas prices in <a href="https://www.gasbuddy.com/GasPrices/Washington/Sumas"> Sumas Washington</a><br><br>
+
+
+Present Canadian to USD <input type=number value=0.80 id="CAD_USD"><br><br>
+
+<input id="myGasCheck" type=hidden value="CDN to USD" onclick="{
+
+(async function(){
+
+   let urlB2 = 'http://free.currencyconverterapi.com/api/v5/convert?q=CAD_USD&compact=y';
+   let myResponse = await fetch(urlB2)
+   myOut = await myResponse.json()
+   let myCoinCost = await parseFloat(myOut.CAD_USD.val).toFixed(4)  
+   //document.getElementById('myB5').innerHTML = await myCoinCost
+   document.getElementById('CAD_USD').value = await myCoinCost
+
+
+
+})() }">
+
+
+Gas price at an american pump:<br>
+<input type=number value=3.459 id="USD_Pump"> $USD per Gallon<br><br>
+
+
+
+<input type=button value="Calc $CAD per Litre" onclick="{
+
+//alert(document.getElementById('USD_Pump').value)
+
+let USD_Litre = parseFloat(document.getElementById('USD_Pump').value) /  3.78541
+
+let CAD_Litre = parseFloat(USD_Litre) / parseFloat(document.getElementById('CAD_USD').value)
+
+document.getElementById('myB5').innerHTML =  '$'+ CAD_Litre.toFixed(2) + ' CDN per Litre'
+
+
+
+}">
+
+
+
+<div id="myB5">...</div>
+
+
